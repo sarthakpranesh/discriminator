@@ -1,11 +1,9 @@
 {
   "expo": {
-    "name": "classifier",
-    "slug": "classifier",
+    "name": "Discriminator",
+    "slug": "Discriminator",
     "platforms": [
-      "ios",
       "android",
-      "web"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,8 +19,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
+    "android": {
+      "package": "com.Discriminator.Discriminator",
+      "versionCode": 1
     }
   }
 }

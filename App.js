@@ -9,14 +9,12 @@ import {
   TouchableOpacity
 } from 'react-native'
 import * as tf from '@tensorflow/tfjs'
-import { fetch, decodeJpeg } from '@tensorflow/tfjs-react-native'
+import { decodeJpeg } from '@tensorflow/tfjs-react-native'
 import * as mobilenet from '@tensorflow-models/mobilenet'
 import * as FileSystem from 'expo-file-system';
 import * as jpeg from 'jpeg-js'
 import * as ImagePicker from 'expo-image-picker'
-import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
-import {decode} from 'base64-arraybuffer';
 
 class App extends React.Component {
   state = {
