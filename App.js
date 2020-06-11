@@ -12,7 +12,6 @@ import * as tf from '@tensorflow/tfjs'
 import { decodeJpeg } from '@tensorflow/tfjs-react-native'
 import * as mobilenet from '@tensorflow-models/mobilenet'
 import * as FileSystem from 'expo-file-system';
-import * as jpeg from 'jpeg-js'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 
@@ -36,33 +35,14 @@ class App extends React.Component {
 
   getPermissionAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-    console.log(status);
     if (status !== 'granted') {
       alert('Sorry, we need camera roll permissions to make this work!')
     }
   }
 
-  imageToTensor(rawImageData) {
-    const TO_UINT8ARRAY = true
-    const { width, height, data } = jpeg.decode(rawImageData, TO_UINT8ARRAY)
-    // Drop the alpha channel info for mobilenet
-    const buffer = new Uint8Array(width * height * 3)
-    let offset = 0 // offset into original data
-    for (let i = 0; i < buffer.length; i += 3) {
-      buffer[i] = data[offset]
-      buffer[i + 1] = data[offset + 1]
-      buffer[i + 2] = data[offset + 2]
-
-      offset += 4
-    }
-
-    return tf.tensor3d(buffer, [height, width, 3])
-  }
-
   classifyImage = async () => {
     try {
       const imageAssetPath = Image.resolveAssetSource(this.state.image)
-      // const response = await fetch(imageAssetPath.uri, {}, { isBinary: true })
       const response = await FileSystem.readAsStringAsync(imageAssetPath.uri,  {
         encoding: FileSystem.EncodingType.Base64,
       })
